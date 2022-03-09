@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 09:04:11 by mbenbajj          #+#    #+#             */
+/*   Updated: 2022/03/09 09:07:17 by mbenbajj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PIPEX_H
-#define PIPEX_H
+# define PIPEX_H
 
 //	includes :
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <string.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
 
 //	functions :
 	//	libft:

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   auto_func.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/09 09:04:19 by mbenbajj          #+#    #+#             */
+/*   Updated: 2022/03/09 09:04:56 by mbenbajj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../pipex.h"
 
 size_t	ft_strlen(const char *s)
@@ -52,7 +64,6 @@ char	*ft_strdup(const char *s1)
 	str[i] = '\0';
 	return (str);
 }
-
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
