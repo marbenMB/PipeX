@@ -12,16 +12,15 @@
 
 #include "pipex.h"
 
-int	pipex(int ac, char **av, char **env)
+char	**get_cmd(int ac, char **av, char **env)
 {
-	// Searching and geting the command
 	char	**paths;
 	char	*cmd_path;
 	char	**cmd;
 	int		i;
 
 	if (!av[1] || !av[1][0])
-		return(-5);
+		return(NULL);
 	i = -1;
 	while (!ft_strnstr(env[++i], "PATH=", 5) && env[i])
 		;
@@ -34,23 +33,31 @@ int	pipex(int ac, char **av, char **env)
 		cmd_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(cmd_path, cmd[0]);
 		if (access(cmd_path, X_OK) == 0)
-			break;
+		{
+			cmd[2] = cmd_path;
+			cmd[3] = NULL;
+			return (cmd);
+		}
 	}
-	printf("%s\n", cmd_path);
+	return (NULL);
+}
 
-	// Forking to child process
+void	pipex(int ac, char **av, char **env)
+{
 	int		id;
+	char	**cmd;
+	char 	*cmd_path;
 
-	id = fork();
-	if (id < 0)
-		fork();
-	else if (id == 0)
+	cmd = get_cmd(ac, av, env);
+	cmd_path = cmd[2];
+	cmd[2] = NULL;
+	if (cmd)
 	{
-		printf("-----\nChild id : %d\n-----\n", id);
-		execve(cmd_path, cmd, env);
-		return (access(cmd_path, X_OK));
+		id = fork();
+		if (id < 0)
+			fork();
+		else if (id == 0)
+			execve(cmd_path, cmd, env);
+		wait(NULL);
 	}
-	wait(NULL);
-	printf("-----\nParent id : %d\n-----\n", id);
-	return (access(cmd_path, X_OK));
 }
