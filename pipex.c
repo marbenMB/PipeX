@@ -39,18 +39,64 @@ char	*get_cmd_path(char *av, char **env)
 	return (NULL);
 }
 
-void	cmd_exec(int fd, char *cmd_path, char *av, char **env)
+char	*get_scd_path(char *av, char **env)
+{
+	char	**paths;
+	char	*cmd_path;
+	char	**cmd;
+	int		i;
+
+	i = -1;
+	printf("****** %s\n", env[0]);
+	while (!ft_strnstr(env[++i], "PATH=", 5) && env[i])
+		;
+	printf("****** %s\n", env[0]);
+	paths = ft_split(env[i], ':');
+	cmd = ft_split(av, ' ');
+	i = -1;
+	while (paths[++i] != NULL)
+	{
+		cmd_path = ft_strjoin(paths[i], "/");
+		cmd_path = ft_strjoin(cmd_path, cmd[0]);
+		if (access(cmd_path, X_OK) == 0)
+			return (cmd_path);
+	}
+	return (NULL);
+}
+
+void	cmd_exec(int fides, char *cmd_path, char **av, char **env)
 {
 	char	**cmd;
 	pid_t	id;
+	int		pip;
+	int		fd[2];
 
-	cmd = ft_split(av, ' ');
-	fd = dup2(fd, 0);
+	cmd = ft_split(av[2], ' ');
+	pip = pipe(fd);
+	fides = dup2(fides, 0);
 	id = fork();
 	if (id < 0)
 		fork();
 	if (id == 0)
+	{
+		fd[1] = dup2(fd[1], 1);
 		execve(cmd_path, cmd, env);
+	}
+
+	//  ** Forking for second time 
+
+	int		out_fd;
+	
+	cmd = ft_split(av[3], ' ');
+	cmd_path = get_scd_path(cmd[0], env);
+	out_fd = open(av[4], O_WRONLY);
+	if (id != 0)
+		id = fork();
+	if (id == 0)
+	{
+		fd[1] = dup2(fd[1], out_fd);
+		execve(cmd_path, cmd, env);
+	}
 	wait(NULL);
 }
 
@@ -77,6 +123,6 @@ void	pipex(int ac, char **av, char **env)
 	}
 	else if (cmd_path)
 	{
-		cmd_exec(fd, cmd_path, av[2], env);
+		cmd_exec(fd, cmd_path, av, env);
 	}
 }
