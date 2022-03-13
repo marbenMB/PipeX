@@ -12,7 +12,8 @@
 
 #include "pipex.h"
 
-// TODO : add functions : get_path_cmd , func_exec && handle the right form of argument to the program
+// TODO : add functions : get_path_cmd
+// func_exec && handle the right form of argument to the program
 
 char	*get_cmd_path(char *av, char **env)
 {
@@ -22,13 +23,13 @@ char	*get_cmd_path(char *av, char **env)
 	char	**cmd;
 
 	i = -1;
-	while(!ft_strnstr(env[++i], "PATH=", 5) && env[i])
+	while (!ft_strnstr(env[++i], "PATH=", 5) && env[i])
 		;
 	env[i] = &env[i][5];
 	paths = ft_split(env[i], ':');
 	cmd = ft_split(av, ' ');
 	i = -1;
-	while(paths[++i] != NULL)
+	while (paths[++i] != NULL)
 	{
 		cmd_path = ft_strjoin(paths[i], "/");
 		cmd_path = ft_strjoin(cmd_path, cmd[0]);
@@ -56,12 +57,12 @@ void	cmd_exec(int fd, char *cmd_path, char *av, char **env)
 void	pipex(int ac, char **av, char **env)
 {
 	char	*cmd_path;
-	int 	fd;
+	int		fd;
 
 	if (!av[2] || !av[2][0] || !env)
 	{
 		if (!av[2] || !av[2][0])
-		ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+			ft_putendl_fd("\033[31m ** CMD : No such command", 2);
 		return ;
 	}
 	cmd_path = get_cmd_path(av[2], env);
@@ -76,8 +77,6 @@ void	pipex(int ac, char **av, char **env)
 	}
 	else if (cmd_path)
 	{
-		//printf("%s\n", cmd_path);
 		cmd_exec(fd, cmd_path, av[2], env);
 	}
-
 }
