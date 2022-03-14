@@ -71,7 +71,6 @@ void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env)
 		fd[1] = dup2(fd[1], 1);
 		close(fides[1]);
 		close(fd[0]);
-		//close(fd[1]);
 		execve(cmd_paths[0], cmd, env);
 	}
 
@@ -86,9 +85,7 @@ void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env)
 	{
 		fides[1] = dup2(fides[1], 1);
 		fd[0] = dup2(fd[0], 0);
-		close(fides[1]);
 		close(fd[1]);
-		//close(fd[0]);
 		execve(cmd_paths[1], cmd, env);
 	}
 	close(fd[0]);
