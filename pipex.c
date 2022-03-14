@@ -24,31 +24,29 @@ char	**get_cmd_path(char **av, char **env)
 	char	**cmd_2;
 
 	i = -1;
-	while(!(ft_strnstr(env[++i], "PATH=", 5)) && env[i])
+	while (!(ft_strnstr(env[++i], "PATH=", 5)) && env[i])
 		;
 	env[i] = &env[i][5];
 	paths = ft_split(env[i], ':');
 	cmd_1 = ft_split(av[2], ' ');
 	cmd_2 = ft_split(av[3], ' ');
 	i = -1;
-
 	cmd_path = malloc(sizeof(char **) * 2);
 	i = -1;
-	while(paths[++i])
+	while (paths[++i])
 	{
 		cmd_path[0] = ft_strjoin(paths[i], "/");
 		cmd_path[0] = ft_strjoin(cmd_path[0], cmd_1[0]);
 		if (access(cmd_path[0], X_OK) == 0)
-			break;	
+			break ;
 	}
-
 	i = -1;
 	while (paths[++i])
 	{
 		cmd_path[1] = ft_strjoin(paths[i], "/");
 		cmd_path[1] = ft_strjoin(cmd_path[1], cmd_2[0]);
 		if (access(cmd_path[1], X_OK) == 0)
-			break;
+			break ;
 	}
 	return (cmd_path);
 }
@@ -59,6 +57,7 @@ void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env)
 	pid_t	id;
 	int		pip;
 	int		fd[2];
+	int		out_fd;
 
 	cmd = ft_split(av[2], ' ');
 	pip = pipe(fd);
@@ -73,11 +72,6 @@ void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env)
 		close(fd[0]);
 		execve(cmd_paths[0], cmd, env);
 	}
-
-	//  ** Forking for second time 
-
-	int		out_fd;
-	
 	cmd = ft_split(av[3], ' ');
 	if (id != 0)
 		id = fork();
