@@ -39,9 +39,9 @@ char	**get_cmd_path(char **av, char **env)
 		cmd_path[0] = ft_strjoin(paths[i], "/");
 		cmd_path[0] = ft_strjoin(cmd_path[0], cmd_1[0]);
 		if (access(cmd_path[0], X_OK) == 0)
-			break;
-		
+			break;	
 	}
+
 	i = -1;
 	while (paths[++i])
 	{
@@ -69,6 +69,9 @@ void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env)
 	{
 		fides[0] = dup2(fides[0], 0);
 		fd[1] = dup2(fd[1], 1);
+		close(fides[1]);
+		close(fd[0]);
+		//close(fd[1]);
 		execve(cmd_paths[0], cmd, env);
 	}
 
@@ -82,9 +85,15 @@ void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env)
 	if (id == 0)
 	{
 		fides[1] = dup2(fides[1], 1);
+		fd[0] = dup2(fd[0], 0);
+		close(fides[1]);
+		close(fd[1]);
+		//close(fd[0]);
 		execve(cmd_paths[1], cmd, env);
 	}
-	wait(NULL);
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(id, NULL, 0);
 }
 
 void	pipex(int ac, char **av, char **env)
@@ -98,12 +107,12 @@ void	pipex(int ac, char **av, char **env)
 			ft_putendl_fd("\033[31m ** CMD : No such command", 2);
 		return ;
 	}
-	fd[0] = open(av[1], O_RDONLY);
-	fd[1] = open(av[ac - 1], O_RDONLY);
+	fd[0] = open(av[1], O_RDONLY, 0777);
+	fd[1] = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	cmd_paths = get_cmd_path(av, env);
-	if (cmd_paths[0] == NULL || cmd_paths[1] == NULL || fd < 0)
+	if (cmd_paths[0] == NULL || cmd_paths[1] == NULL || fd[0] < 0 || fd[1] < 0)
 	{
-		if (fd < 0)
+		if (fd[0] < 0 || fd[1] < 0)
 			ft_putendl_fd("\033[31m ** FILE : No such file or directory", 2);
 		else if (!cmd_paths)
 			ft_putendl_fd("\033[31m ** CMD : No such file or directory", 2);
