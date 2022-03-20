@@ -33,8 +33,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 	//	pipex :
 void	pipex(int ac, char **av, char **env);
-char	*get_cmd(int ac, char **av, char **env);
-//char	*get_cmd_path(char *av, char **env);
 void	cmd_exec(int fides[2], char **cmd_paths, char **av, char **env);
 char	**get_cmd_path(char **av, char **env);
 

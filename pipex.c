@@ -32,6 +32,8 @@ char	**get_cmd_path(char **av, char **env)
 	cmd_2 = ft_split(av[3], ' ');
 	i = -1;
 	cmd_path = malloc(sizeof(char **) * 2);
+	if (!cmd_path)
+		return (NULL);
 	i = -1;
 	while (paths[++i])
 	{
