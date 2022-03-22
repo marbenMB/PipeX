@@ -37,3 +37,5 @@ fclean : clean
 	rm -rf $(NAME) $(BNS_NAME)
 
 re : fclean all
+
+rb : fclean bonus

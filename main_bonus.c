@@ -21,6 +21,9 @@ int main(int ac, char **av, char **env)
     i = -1;
     while (++i < ac - 3)
         printf("%s  \n", paths[i]);
+    printf("/*****************************\\\n");
+    printf("\\*****************************/\n");
+    cmd_exec(ac, paths, av, env);
     
     return (0);
 }

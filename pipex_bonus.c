@@ -54,32 +54,51 @@ char	**get_cmd_path(int ac, char **av, char **env)
 	return (cmd_path);
 }
 
-/* void	cmd_exec(int ac, char **cmd_paths, char **av, char **env)
+void	cmd_exec(int ac, char **cmd_paths, char **av, char **env)
 {
 	int		i;
 	int		fides[2];
 	pid_t	id;
-	char	*cmd;
+	char	**cmd;
 	int		pip;
 	int		pip_fd[2];
 
-	if ((fides[0] = open(av[1], O_RDONLY, 0777) < 0) || \
-		(fides[1] = open(av[ac - 1], O_WRONLY, O_CREAT, O_TRUNC, 0777) < 0))
+	fides[0] = open(av[1], O_RDONLY, 0777);
+	fides[1] = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fides[0] < 0 || fides[1] < 0)
 		exit(-1);
 	i = 1;
 	while (++i < ac - 1)
 	{
-		if (id = fork() == -1)
+		id = fork();
+		if (id == -1)
 			id = fork();
-		if (i == 2)
-			dup2(fides[0], 0);
-		else if (i > 2)
-			dup2(pip_fd[0], 0);
-		else if (i = ac - 2)
-			dup2(fides[1], 1);
-		if (pip = pipe(pip_fd) == -1)
+		pip = pipe(pip_fd);
+		if (pip == -1)
 			pip = pipe(pip_fd);
-		if (i > 2 && i < ac - 2)
-			dup2(pip_fd[1], 1);
+
+		if (id == 0)
+		{
+//		input duplication
+
+			if (i == 2)
+				fides[0] = dup2(fides[0], 0);
+			else if (i > 2)
+				pip_fd[0] = dup2(pip_fd[0], 0);
+
+//		output duplication
+
+			if (i >= 2 && i < ac - 2)
+				pip_fd[1] = dup2(pip_fd[1], 1);
+			else if (i == ac - 2)
+				fides[1] = dup2(fides[1], 1);
+			if (id == 0)
+			{
+				cmd = ft_split(av[i], ' ');
+				execve(cmd_paths[0]++, cmd, env);
+			}
+		}
+		if (id != 0)
+			wait(NULL);
 	}
-} */
+}
