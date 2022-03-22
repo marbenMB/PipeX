@@ -34,8 +34,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 	//	pipex :
 void	pipex(int ac, char **av, char **env);
 char	**get_cmd(int ac, char **av, char **env);
-//char	*get_cmd_path(char *av, char **env);
-void	cmd_exec(int ac, char **cmd_paths, char **av, char **env);
-char	**get_cmd_path(int ac, char **av, char **env);
+void	exec_cmd(int ac, char **av, char **env);
+char	*get_cmd_path(char	**cmd, char **env);
 
 #endif

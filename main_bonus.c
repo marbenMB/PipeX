@@ -14,16 +14,6 @@
 
 int main(int ac, char **av, char **env)
 {
-    char    **paths;
-    int     i;
-
-    paths = get_cmd_path(ac, av, env);
-    i = -1;
-    while (++i < ac - 3)
-        printf("%s  \n", paths[i]);
-    printf("/*****************************\\\n");
-    printf("\\*****************************/\n");
-    cmd_exec(ac, paths, av, env);
-    
+    exec_cmd(ac, av, env);
     return (0);
 }
