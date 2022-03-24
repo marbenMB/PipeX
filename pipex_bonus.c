@@ -17,12 +17,12 @@ char	*get_cmd_path(char	**cmd, char **env)
 	char	**path;
 	char	*cmd_path;
 	int		i;
+	char	**ev;
 
 	i = -1;
-	while (!(ft_strnstr(env[++i], "PATH=", 5)) && env[i])
+	while (!(ft_strnstr(env[++i], "PATH=", 5) && env[i]))
 		;
-	env[i] = &env[i][5];
-	path = ft_split(env[i], ':');
+	path = ft_split(&env[i][5], ':');
 	while (path++)
 	{
 		cmd_path = ft_strjoin(path[0], "/");
