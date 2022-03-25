@@ -35,7 +35,26 @@ char	*get_cmd_path(char	**cmd, char **env)
 	return (NULL);
 }
 
-void	exec_cmd(int ac, char **av, char **env)
+void	exec_cmd(char *cmd_path, char **cmd, char **env)
+{
+	int		pip;
+	int		pip_fd[2];
+	pid_t	id;
+
+	pip = pipe(pip_fd);
+	id = fork();
+	if (id < 0 || pip < 0)
+	{
+		ft_putendl_fd("\033[31m ERROR : Fork() or Pipe() problem", 2);
+		exit (-1);
+	}
+	else if (id == 0)
+		execve(cmd_path, cmd, env);
+	else
+		wait(NULL);
+}
+
+void	process_cmd(int ac, char **av, char **env)
 {
 	char	**cmd;
 	char	*cmd_path;
@@ -47,31 +66,25 @@ void	exec_cmd(int ac, char **av, char **env)
 		cmd = ft_split(av[i], ' ');
 		cmd_path = get_cmd_path(cmd, env);
 		printf("%s \n", cmd_path);
+		
 	}
 }
 
-/* int	main(int ac, char **av, char **env)
+void	process_args(int ac, char **av, char **env)
 {
-	pid_t	id;
-	int		pip;
-	int		fd[2];
+	if (ft_strncmp(av[1], "here_doc", 8))
+		process_here_doc(av[2]);
+	else
+		process_cmd(ac, av, env);
+}
 
-	if (ac != 5)
+int	main(int ac, char **av, char **env)
+{
+	if (ac < 5)
 	{
 		ft_putendl_fd("\033[31m ERROR : number of arguments.", 2);
 		exit (-1);
 	}
-	id = fork();
-	pip = pipe(fd);
-	if (id < 0 || pip < 0)
-	{
-		ft_putendl_fd("\033[31m ERROR : Fork() or Pipe() problem", 2);
-		exit (-1);
-	}
-	if (id == 0)
-		exec_cmd(ac, av, env);
-	if (id != 0)
-		wait(NULL);
+	process_args(ac, av, env);
 	return (0);
-} */
-
+}

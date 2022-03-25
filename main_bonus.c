@@ -12,8 +12,8 @@
 
 #include "pipex_bonus.h"
 
-int main(int ac, char **av, char **env)
+/* int main(int ac, char **av, char **env)
 {
     exec_cmd(ac, av, env);
     return (0);
-}
+} */
