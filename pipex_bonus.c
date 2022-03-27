@@ -54,6 +54,11 @@ void	exec_cmd(char *cmd_path, char **cmd, char **env)
 		wait(NULL);
 }
 
+void	process_here_doc(char *limiter)
+{
+	
+}
+
 void	process_cmd(int ac, char **av, char **env)
 {
 	char	**cmd;

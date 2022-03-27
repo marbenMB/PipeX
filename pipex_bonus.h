@@ -20,8 +20,9 @@
 # include <fcntl.h>
 # include <string.h>
 
-//	functions :
-	//	libft:
+//	Functions :
+
+	//***	Libft:	******************************************** //
 int	ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
@@ -32,12 +33,16 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
-	//	pipex :
+
+	//***	Pipex :	******************************************** //
 void	pipex(int ac, char **av, char **env);
-		//	process functions :
+
+		//***	Process functions :	**************************** //
 void	process_args(int ac, char **av, char **env);
 void	process_cmd(int ac, char **av, char **env);
 void	process_here_doc(char *limiter);
+
+		//***	Utils functions :	**************************** //
 char	*get_cmd_path(char	**cmd, char **env);
 void	exec_cmd(char *cmd_path, char **cmd, char **env);
 
