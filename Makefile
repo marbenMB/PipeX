@@ -13,6 +13,7 @@
 NAME = pipex
 BNS_NAME = pipex_bonus
 SRC = main.c pipex.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
+.SILENT :
 OBJECT = $(SRC:.c=.o)
 BNS_SRC = main_bonus.c pipex_bonus.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
 BNS_OBJ = $(SRC:.c=.o)
@@ -22,19 +23,19 @@ all : $(NAME)
 
 $(NAME) : $(OBJECT) pipex.h
 	# gcc $(OBJECT) -o $(NAME)
-	gcc $(SRC) -o $(NAME) -g
+	@gcc $(SRC) -o $(NAME) -g
 
 bonus :	$(BNS_NAME)
 
 $(BNS_NAME) : $(BNS_OBJ) pipex_bonus.h
 	# gcc $(BNS_OBJ) -o $(BNS_NAME)
-	gcc $(BNS_SRC) -o $(BNS_NAME) -g
+	@gcc $(BNS_SRC) -o $(BNS_NAME) -g
 
 clean :
-	rm -rf $(OBJECT) $(BNS_OBJ)
+	@rm -rf $(OBJECT) $(BNS_OBJ)
 
 fclean : clean
-	rm -rf $(NAME) $(BNS_NAME)
+	@rm -rf $(NAME) $(BNS_NAME)
 
 re : fclean all
 

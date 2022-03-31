@@ -27,8 +27,7 @@ char	**get_cmd_path(int ac, char **av, char **env)
 	}
 	if (env[i[0]])
 	{
-		env[i[0]] = &env[i[0]][5];
-		paths = ft_split(env[i[0]], ':');
+		paths = ft_split(&env[i[0]][5], ':');
 		cmd_path = (char **)malloc(sizeof(char **) * (ac - 3 + 1));
 		if (!cmd_path)
 			return (NULL);
