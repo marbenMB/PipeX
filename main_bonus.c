@@ -23,7 +23,7 @@ int main(int ac, char **av, char **env)
         printf("%s  \n", paths[i]);
     printf("/*****************************\\\n");
     printf("\\*****************************/\n");
-    cmd_exec(ac, paths, av, env);
+    //cmd_exec(ac, paths, av, env);
     
     return (0);
 }

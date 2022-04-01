@@ -12,6 +12,40 @@
 
 #include "pipex_bonus.h"
 
+char	**fill_cmd_tab(int ac, char **paths, char **av)
+{
+	int		idx[3];
+	char	**cmd;
+	char	**cmd_path;
+
+	cmd_path = (char **)malloc(sizeof(char **) * (ac - 2));
+		if (!cmd_path)
+			return (NULL);
+		idx[1] = 1;
+		idx[2] = 0;
+		while (++idx[1] < ac - 1 && av[idx[1]][0])
+		{
+			idx[0] = -1;
+			while (paths[++idx[0]])
+			{
+				cmd = ft_split(av[idx[1]], ' ');
+				cmd_path[idx[2]] = ft_strjoin(paths[idx[0]], "/");
+				cmd_path[idx[2]] = ft_strjoin(cmd_path[idx[2]], cmd[0]);
+				if (access(cmd_path[idx[2]], X_OK) == 0)
+					break;
+			}
+			if (access(cmd_path[idx[2]], X_OK) != 0)
+			{
+				ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+				exit(-1);
+			}
+			idx[2]++;
+		}
+	cmd_path[idx[2]] = NULL;
+
+	return (cmd_path);
+}
+
 char	**get_cmd_path(int ac, char **av, char **env)
 {
 	int		i[3];
@@ -28,28 +62,8 @@ char	**get_cmd_path(int ac, char **av, char **env)
 	if (env[i[0]])
 	{
 		paths = ft_split(&env[i[0]][5], ':');
-		cmd_path = (char **)malloc(sizeof(char **) * (ac - 3 + 1));
-		if (!cmd_path)
-			return (NULL);
-		i[1] = 1;
-		i[2] = 0;
-		while (++i[1] < ac - 1)
-		{
-			i[0] = -1;
-			while (paths[++i[0]])
-			{
-				cmd = ft_split(av[i[1]], ' ');
-				cmd_path[i[2]] = ft_strjoin(paths[i[0]], "/");
-				cmd_path[i[2]] = ft_strjoin(cmd_path[i[2]], cmd[0]);
-				if (access(cmd_path[i[2]], X_OK) == 0)
-					break ;
-			}
-			if (cmd_path[i[2]] == NULL)
-				return (NULL);
-			i[2]++;
-		}
+		cmd_path = fill_cmd_tab(ac, paths, av);
 	}
-	cmd_path[i[2]] = NULL;
 	return (cmd_path);
 }
 

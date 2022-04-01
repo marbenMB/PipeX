@@ -36,6 +36,7 @@ void	pipex(int ac, char **av, char **env);
 char	**get_cmd(int ac, char **av, char **env);
 //char	*get_cmd_path(char *av, char **env);
 void	cmd_exec(int ac, char **cmd_paths, char **av, char **env);
+char	**fill_cmd_tab(int ac, char **paths, char **av);
 char	**get_cmd_path(int ac, char **av, char **env);
 
 #endif
