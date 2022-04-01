@@ -23,18 +23,23 @@ char	**fill_cmd_tab(int ac, char **paths, char **av)
 			return (NULL);
 		idx[1] = 1;
 		idx[2] = 0;
-		while (++idx[1] < ac - 1 && av[idx[1]][0])
+		while (++idx[1] < ac - 1)
 		{
 			idx[0] = -1;
-			while (paths[++idx[0]])
+			while (paths[++idx[0]] && !(!av[idx[1]] || !av[idx[1]][0]))
 			{
 				cmd = ft_split(av[idx[1]], ' ');
+				if (cmd == NULL)
+				{
+					ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+					exit(-1);
+				}
 				cmd_path[idx[2]] = ft_strjoin(paths[idx[0]], "/");
 				cmd_path[idx[2]] = ft_strjoin(cmd_path[idx[2]], cmd[0]);
 				if (access(cmd_path[idx[2]], X_OK) == 0)
 					break;
 			}
-			if (access(cmd_path[idx[2]], X_OK) != 0)
+			if (access(cmd_path[idx[2]], X_OK) != 0 || (!av[idx[1]] || !av[idx[1]][0]))
 			{
 				ft_putendl_fd("\033[31m ** CMD : No such command", 2);
 				exit(-1);
@@ -62,6 +67,11 @@ char	**get_cmd_path(int ac, char **av, char **env)
 	if (env[i[0]])
 	{
 		paths = ft_split(&env[i[0]][5], ':');
+		if (paths == NULL)
+		{
+			ft_putendl_fd("\033[31m ** No such PATHS", 2);
+			exit(-1);							// ****** paths errors
+		}
 		cmd_path = fill_cmd_tab(ac, paths, av);
 	}
 	return (cmd_path);
