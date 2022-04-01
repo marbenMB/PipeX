@@ -12,27 +12,59 @@
 
 #include "pipex_bonus.h"
 
-char	*get_cmd_path(char	**cmd, char **env)
+char	**fill_cmd_tab(int ac, char **paths, char **av)
 {
-	char	**path;
-	char	*cmd_path;
-	int		i;
-	char	**ev;
+	int		idx[3];
+	char	**cmd;
+	char	**cmd_path;
 
-	i = -1;
-	while (!(ft_strnstr(env[++i], "PATH=", 5) && env[i]))
-		;
-	path = ft_split(&env[i][5], ':');
-	while (path++)
+	cmd_path = (char **)malloc(sizeof(char **) * (ac - 2));
+		if (!cmd_path)
+			return (NULL);
+		idx[1] = 1;
+		idx[2] = 0;
+		while (++idx[1] < ac - 1 && av[idx[1]][0])
+		{
+			idx[0] = -1;
+			while (paths[++idx[0]])
+			{
+				cmd = ft_split(av[idx[1]], ' ');
+				cmd_path[idx[2]] = ft_strjoin(paths[idx[0]], "/");
+				cmd_path[idx[2]] = ft_strjoin(cmd_path[idx[2]], cmd[0]);
+				if (access(cmd_path[idx[2]], X_OK) == 0)
+					break;
+			}
+			if (access(cmd_path[idx[2]], X_OK) != 0)
+			{
+				ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+				exit(-1);
+			}
+			idx[2]++;
+		}
+	cmd_path[idx[2]] = NULL;
+
+	return (cmd_path);
+}
+
+char	**get_cmd_path(int ac, char **av, char **env)
+{
+	int		i[3];
+	char	**paths;
+	char	**cmd_path;
+	char	**cmd;
+
+	if (env[0])
 	{
-		cmd_path = ft_strjoin(path[0], "/");
-		cmd_path = ft_strjoin(cmd_path, cmd[0]);
-		if (access(cmd_path, X_OK) == 0)
-			break ;
+		i[0] = -1;
+		while (!ft_strnstr(env[++i[0]], "PATH=", 5))
+			;
 	}
-	if (access(cmd_path, X_OK) == 0)
-		return (cmd_path);
-	return (NULL);
+	if (env[i[0]])
+	{
+		paths = ft_split(&env[i[0]][5], ':');
+		cmd_path = fill_cmd_tab(ac, paths, av);
+	}
+	return (cmd_path);
 }
 
 void	exec_cmd(char *cmd_path, char **cmd, char **env)
