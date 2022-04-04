@@ -15,7 +15,7 @@ BNS_NAME = pipex_bonus
 SRC = main.c pipex.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
 .SILENT :
 OBJECT = $(SRC:.c=.o)
-BNS_SRC = main_bonus.c pipex_bonus.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
+BNS_SRC = main_bonus.c pipex_bonus.c pipex_bonus_utils.c error_handling.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
 BNS_OBJ = $(SRC:.c=.o)
 CFlAGS = -Wall -Wextra -Werror -I.
 
