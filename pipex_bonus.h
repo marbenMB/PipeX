@@ -43,7 +43,8 @@ void	process_cmd(int ac, char **av, char **env);
 void	process_here_doc(char *limiter);
 
 		//***	Utils functions :	**************************** //
-char	*get_cmd_path(char	**cmd, char **env);
+char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av);
+char	**get_cmd_path(int ac, char **av, char **env);
 void	exec_cmd(char *cmd_path, char **cmd, char **env);
 
 #endif
