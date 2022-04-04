@@ -28,6 +28,7 @@ char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av)
 			if (cmd[0] == NULL)
 			{
 				ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+				//	free the biggest table
 				exit(-1);
 			}
 			cmd_path[idx[2]] = ft_strjoin(paths[idx[0]], "/");
@@ -38,6 +39,7 @@ char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av)
 		if (access(cmd_path[idx[2]], X_OK) != 0 || (!av[idx[1]] || !av[idx[1]][0]))
 		{
 			ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+			// free the smallest tables and the biggest too
 			exit(-1);
 		}
 		idx[2]++;
