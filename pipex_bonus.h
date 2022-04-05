@@ -20,6 +20,13 @@
 # include <fcntl.h>
 # include <string.h>
 
+//	Structures :
+typedef struct s_cmd_pack
+{
+	char	**cmd;
+	char	*cmd_path;
+}	t_cmd_pack;
+
 //	Functions :
 
 	//***	Libft:	******************************************** //
@@ -40,7 +47,7 @@ void	pipex(int ac, char **av, char **env);
 		//***	Process functions :	**************************** //
 void	process_args(int ac, char **av, char **env);
 void	process_cmd(int ac, char **av, char **env);
-void	process_here_doc(char *limiter);
+void	process_here_doc(int ac, char **av, char *env[]);
 
 		//***	Utils functions :	**************************** //
 char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av);

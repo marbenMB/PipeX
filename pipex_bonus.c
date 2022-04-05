@@ -12,7 +12,7 @@
 
 #include "pipex_bonus.h"
 
-char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av)
+char	**fill_cmd_tab(int ac, char **paths, t_cmd_pack **cmd_pack,char **av)
 {
 	int		idx[3];
 	char	**cmd;
@@ -46,7 +46,7 @@ char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av)
 	return (cmd_path);
 }
 
-char	**get_cmd_path(int ac, char **av, char **env)
+char	**get_cmd_path(t_cmd_pack **cmd_pack ,int ac, char **av, char **env)
 {
 	int		idx;
 	char	**paths;
@@ -64,15 +64,12 @@ char	**get_cmd_path(int ac, char **av, char **env)
 			ft_putendl_fd("\033[31m ** No such PATHS", 2);
 			exit(-1);
 		}
-		cmd_path = (char **)malloc(sizeof(char **) * (ac - 2));
-		if (!cmd_path)
-			exit(-1);
-		cmd_path = fill_cmd_tab(ac, paths, cmd_path, av);
+		cmd_pack = fill_cmd_tab(ac, paths, cmd_pack, av);
 	}
 	return (cmd_path);
 }
 
-void	exec_cmd(char *cmd_path, char **cmd, char **env)
+/* void	exec_cmd(char *cmd_path, char **cmd, char **env)
 {
 	int		pip;
 	int		pip_fd[2];
@@ -89,28 +86,34 @@ void	exec_cmd(char *cmd_path, char **cmd, char **env)
 		execve(cmd_path, cmd, env);
 	else
 		wait(NULL);
-}
+} */
 
-void	process_here_doc(char *limiter)
+void	process_here_doc(int ac, char **av, char *env[])
 {
 	
 }
 
 void	process_cmd(int ac, char **av, char **env)
 {
-	char	**cmd_path;
+	t_cmd_pack	**cmd_pack;
 	int		i;
 
 	i = -1;
-	cmd_path = get_cmd_path(ac, av, env);
-	while (cmd_path[++i])
-		printf("%s\n", cmd_path[i]);
+	cmd_pack = (char **)malloc(sizeof(t_cmd_pack *));
+	if (!cmd_pack)
+		exit(-1);
+	cmd_pack = get_cmd_path(cmd_pack, ac, av, env);
+	printf("/*************************/\n");
+	while (cmd_pack[++i])
+		printf("%s\n", cmd_pack[i]->cmd_path);
+	printf("/*************************/\n");
+
 }
 
 void	process_args(int ac, char **av, char **env)
 {
 	if (!ft_strncmp(av[1], "here_doc", 8))
-		process_here_doc(av[2]);
+		process_here_doc(ac, av, env);
 	else
 		process_cmd(ac, av, env);
 }
