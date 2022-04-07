@@ -14,7 +14,7 @@
 
 int main(int ac, char **av, char **env)
 {
-    char    **paths;
+    t_cmd_pack    **paths;
     int     i;
 
 	if (ac < 5)
@@ -24,9 +24,12 @@ int main(int ac, char **av, char **env)
 	}
     paths = get_cmd_path(ac, av, env);
     printf("/*****************************\\\n");
-    i = -1;
-    while (++i < ac - 3)
-        printf("%s  \n", paths[i]);
+    i = 0;
+    while (paths[i] != NULL)
+	{
+        printf("%s	-%s	:	%s  \n",paths[i]->cmd[0], paths[i]->cmd[1], paths[i]->cmd_path);
+		i++;
+	}
     printf("\\*****************************/\n");
     //cmd_exec(ac, paths, av, env);
     

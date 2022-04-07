@@ -47,7 +47,7 @@ void		process_args(int ac, char **av, char **env);
 	//	pipex functions :
 void		pipex(int ac, char **av, char **env);
 char	**fill_cmd_tab(int ac, char **paths, char **cmd_path, char **av);
-char	**get_cmd_path(int ac, char **av, char **env);
+t_cmd_pack	**get_cmd_path(int ac, char **av, char **env);
 		//	error handling :
 void		file_opening(int fd);
 
