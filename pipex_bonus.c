@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "pipex_bonus.h"
-
-char	**fill_cmd_tab(int ac, char **paths, t_cmd_pack **cmd_pack,char **av)
+/* 
+char	**fill_cmd_tab(int ac, char **paths, char **cmd_path,char **av)
 {
 	int		idx[3];
 	char	**cmd;
@@ -67,26 +67,70 @@ char	**get_cmd_path(t_cmd_pack **cmd_pack ,int ac, char **av, char **env)
 		cmd_pack = fill_cmd_tab(ac, paths, cmd_pack, av);
 	}
 	return (cmd_path);
+} */
+
+t_cmd_pack	*fill_cmd(char **paths, t_cmd_pack *cmd_pack, int ac, char **av)
+{
+	int		idx[3];
+	char	*join;
+	int		index;
+	idx[1] = 2;
+	idx[2] = 0;
+	index = 0;
+	while (idx[1] < ac - 1)
+	{
+		
+		cmd_pack[idx[2]].cmd = ft_split(av[idx[1]], ' ');
+		if (cmd_pack[idx[2]].cmd[0] == NULL)
+		{
+			ft_putendl_fd("\033[31m ** CMD : No such command", 2);
+			exit(-1);
+		}
+		idx[0] = -1;
+		while (paths[++idx[0]])
+		{
+			join = ft_strjoin(paths[idx[0]], "/");
+			cmd_pack[idx[2]].cmd_path = ft_strjoin(join, cmd_pack[idx[2]].cmd[0]);
+			printf("************ %s\n", cmd_pack[idx[2]].cmd_path);
+			index = access(cmd_pack[idx[2]].cmd_path, X_OK);
+			if (index == 0)
+				break;
+			free(cmd_pack[idx[2]].cmd_path);
+			free(join);
+		}
+		if (index != 0)
+		{
+			ft_putendl_fd("\033[31m ** CMD9 : No such command", 2);
+			exit(-1);
+		}
+		idx[2]++;
+	}
+	cmd_pack[idx[2]].cmd = NULL;
+	cmd_pack[idx[2]].cmd_path = NULL;
+	return (cmd_pack);
 }
 
-/* void	exec_cmd(char *cmd_path, char **cmd, char **env)
+t_cmd_pack	*get_path(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 {
-	int		pip;
-	int		pip_fd[2];
-	pid_t	id;
+	int		idx;
+	char	**paths;
 
-	pip = pipe(pip_fd);
-	id = fork();
-	if (id < 0 || pip < 0)
+	if (env[0])
 	{
-		ft_putendl_fd("\033[31m ERROR : Fork() or Pipe() problem", 2);
-		exit (-1);
+		idx = -1;
+		while (!ft_strnstr(env[++idx], "PATH=", 5))
+			;
+		paths = ft_split(&env[idx][5], ':');
+		if (paths[0] == NULL)
+		{
+			ft_putendl_fd("\033[31m ** No such PATHS", 2);
+			exit(-1);
+		}
+		cmd_pack = fill_cmd(paths,  cmd_pack, ac, av);
 	}
-	else if (id == 0)
-		execve(cmd_path, cmd, env);
-	else
-		wait(NULL);
-} */
+	return (cmd_pack);
+}
+
 
 void	process_here_doc(int ac, char **av, char *env[])
 {
@@ -95,17 +139,17 @@ void	process_here_doc(int ac, char **av, char *env[])
 
 void	process_cmd(int ac, char **av, char **env)
 {
-	t_cmd_pack	**cmd_pack;
+	t_cmd_pack	*cmd_pack;
 	int		i;
 
 	i = -1;
-	cmd_pack = (char **)malloc(sizeof(t_cmd_pack *));
+	cmd_pack = (t_cmd_pack *)malloc(sizeof(t_cmd_pack));
 	if (!cmd_pack)
 		exit(-1);
-	cmd_pack = get_cmd_path(cmd_pack, ac, av, env);
+	cmd_pack = get_path(cmd_pack, ac, av, env);
 	printf("/*************************/\n");
-	while (cmd_pack[++i])
-		printf("%s\n", cmd_pack[i]->cmd_path);
+	while (cmd_pack[++i].cmd_path)
+		printf("%s\n", cmd_pack[i].cmd_path);
 	printf("/*************************/\n");
 
 }
