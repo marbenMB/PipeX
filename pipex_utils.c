@@ -20,6 +20,8 @@ t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av
             if (!access(cmd_pack[idx[2]].cmd_path, X_OK))
                 break ;
         }
+        if (access(cmd_pack[idx[2]].cmd_path, X_OK))
+            error_cmd(av[idx[1]], cmd_pack);
     }
 }
 

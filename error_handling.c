@@ -22,3 +22,8 @@ void    error_fill_arg(char *str)
         write(2, "empty arg", 9);
     exit(-1);
 }
+
+void    error_cmd(char *arg, t_cmd_pack *cmd_pack)
+{
+    
+}

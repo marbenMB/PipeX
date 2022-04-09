@@ -36,5 +36,6 @@ void    process_cmd(int fd[2], int ac, char **av, char **env);
 void    error_args();
 void    error_files();
 void    error_fill_arg(char *str);
+void    error_cmd(char *arg, t_cmd_pack *cmd_pack);
 
 #endif
