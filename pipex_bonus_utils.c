@@ -89,34 +89,43 @@ t_cmd_pack	**fill_struct(t_cmd_pack **cmd_pack, int ac, char **paths, char **av)
 	index = 0;
 	while (av_dx < ac - 1)
 	{
-		// cmd_pack[s_dx] = (t_cmd_pack *)malloc(sizeof(t_cmd_pack));
-		// if (!cmd_pack[s_dx])
-		// 	exit(-1);
-		cmd_pack[s_dx] = (t_cmd_pack *)calloc(sizeof(t_cmd_pack),1);
+		cmd_pack[s_dx] = (t_cmd_pack *)malloc(sizeof(t_cmd_pack));
 		if (!cmd_pack[s_dx])
 			exit(-1);
 		cmd_pack[s_dx]->cmd = ft_split(av[av_dx], ' ');
-		p_dx = 0;
-		while (paths[p_dx] != NULL)
+		p_dx = -1;
+		while (paths[++p_dx])
 		{
 			str = ft_strjoin(paths[p_dx], "/");
 			cmd_pack[s_dx]->cmd_path = ft_strjoin(str, cmd_pack[s_dx]->cmd[0]);
-			free(str);
-			if (access(cmd_pack[s_dx]->cmd_path, X_OK) == 0)
+			index = access(cmd_pack[s_dx]->cmd_path, X_OK);
+			if (index == 0)
 			{
 				av_dx++;
 				break;
 			}
-			p_dx++;
+			else
+			{
+				free(str);
+				free(cmd_pack[s_dx]->cmd_path);
+			}
+		}
+		if (index != 0)
+		{
+			printf("---%s\n",cmd_pack[s_dx]->cmd[0]);
+			printf("cmd not found !");
+			exit(1);
 		}
 		s_dx++;
+		
 	}
+	cmd_pack[s_dx] = NULL;
 	while (index < ac - 3)
 	{
 		printf("cmd_pack[%d]->cmd_path = %s\n",index,cmd_pack[index]->cmd_path);
 		index++;
 	}
-	cmd_pack[s_dx] = NULL;
+	printf("cmd done !");
 	return (cmd_pack);
 }
 
@@ -138,12 +147,15 @@ t_cmd_pack	**get_cmd_path(int ac, char **av, char **env)
 			exit(-1);
 		}
 		cmd_pack = (t_cmd_pack **)malloc(sizeof(t_cmd_pack *));
-		//(*cmd_pack)->cmd = (char **)malloc(sizeof(char *));
-		//(*cmd_pack)->cmd_path = (char *)malloc(sizeof(char *));
 		if (!cmd_pack)
 			exit(-1);
 		cmd_pack = fill_struct(cmd_pack, ac, paths, av);
 	}
+	// while (*cmd_pack)
+	// {
+	// 	printf("cmd |%s\ncmd_path |%s\n", (*cmd_pack)->cmd, (*cmd_pack)->cmd_path);
+	// 	cmd_pack++;
+	// }
 	return (cmd_pack);
 }
 
