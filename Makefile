@@ -12,7 +12,7 @@
 
 NAME = pipex
 BNS_NAME = pipex_bonus
-SRC = main.c pipex.c error_handling.c ft_process.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
+SRC = main.c pipex.c pipex_utils.c error_handling.c ft_process.c libft/auto_func.c libft/ft_split.c libft/lib_func.c
 .SILENT :
 OBJECT = $(SRC:.c=.o)
 BNS_SRC = main_bonus.c pipex_bonus.c pipex_bonus_utils.c error_handling.c libft/auto_func.c libft/ft_split.c libft/lib_func.c

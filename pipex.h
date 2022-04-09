@@ -28,6 +28,7 @@ char	**ft_split(char const *s, char c);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
+char	*ft_strrchr(const char *s, int c);
 
 //	**********  Processing functions :
 void    process_args(int ac, char **av, char **env);
@@ -36,6 +37,9 @@ void    process_cmd(int fd[2], int ac, char **av, char **env);
 void    error_args();
 void    error_files();
 void    error_fill_arg(char *str);
-void    error_cmd(char *arg, t_cmd_pack *cmd_pack);
-
+void    error_cmd(char *arg, t_cmd_pack *cmd_pack, int idx);
+//	**********  Pipex Utils :
+void	free_struct(t_cmd_pack *cmd_pack, int idx);
+t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av);
+t_cmd_pack  *get_cmd_pack(int ac, char **av, char **env);
 #endif
