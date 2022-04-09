@@ -1,27 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 09:03:52 by mbenbajj          #+#    #+#             */
-/*   Updated: 2022/03/09 09:07:53 by mbenbajj         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
-	char	*str;
-
-	str = "\033[31m Execution syntax : ./pipex infile \"cmd_1\" \"cmd_2\" outfile";
-	if (ac != 5)
-	{
-		ft_putendl_fd(str, 2);
-		return (0);
-	}
-	pipex(ac, av, env);
-	return (0);
+    if (ac < 5)
+        error_args();
+    process_args(ac, av, env);
 }

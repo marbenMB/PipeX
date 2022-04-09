@@ -1,10 +1,24 @@
-#include "pipex_bonus.h"
 
-void	file_opening(int fd)
+#include "pipex.h"
+
+void    error_args()
 {
-	if (fd < 0)
-	{
-		ft_putendl_fd("\033[31m ** FILE : No such file or directory", 2);
-		exit(-1);
-	}
+    ft_putendl_fd("\033[31m ** USAGE : file1 cmd1 cmd2 ... cmdn file2", 2);
+    exit(-1);
+}
+
+void    error_files()
+{
+    ft_putendl_fd("\033[31m ** FILE : No such file", 2);
+    exit(-1);
+}
+
+void    error_fill_arg(char *str)
+{
+    ft_putstr_fd("\033[31m ** CMD : No such command : ", 2);
+    if (str && str[0] && str[0] != ' ')
+        write(2, str, ft_strlen(str));
+    else
+        write(2, "empty arg", 9);
+    exit(-1);
 }
