@@ -12,9 +12,20 @@ void	free_struct(t_cmd_pack *cmd_pack, int idx)
 		j = -1;
 		while (cmd_pack[i].cmd[++j])
 			free(cmd_pack[i].cmd[j]);
+		free(cmd_pack[i].cmd[j]);
 		free(cmd_pack[i].cmd_path);
 	}
 	free(cmd_pack);
+}
+
+void	free_tab(char **tab)
+{
+	int	i;
+
+	i = -1;
+	while (tab[++i])
+		free(tab[i]);
+	free(tab);
 }
 
 t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av)
@@ -46,7 +57,8 @@ t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av
 				free(str);
 				if (!access(cmd_pack[idx[2]].cmd_path, X_OK))
 					break ;
-				//free(cmd_pack[idx[2]].cmd_path);
+				free(cmd_pack[idx[2]].cmd_path);
+
 			}
 		}
         if (access(cmd_pack[idx[2]].cmd_path, X_OK))
@@ -69,5 +81,7 @@ t_cmd_pack  *get_cmd_pack(int ac, char **av, char **env)
         ;
     paths = ft_split(&env[idx][5], ':');
     cmd_pack = fill_cmd_pack(cmd_pack, paths, ac, av);
+	//free paths pointer
+	free_tab(paths);
     return (cmd_pack);
 }

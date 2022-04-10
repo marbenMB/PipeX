@@ -26,7 +26,7 @@ void    error_fill_arg(char *str)
 void    error_cmd(char *arg, t_cmd_pack *cmd_pack, int idx)
 {
     ft_putendl_fd("\033[31m ** CMD : No such command", 2);
-	free_struct(cmd_pack, idx);
+	//free_struct(cmd_pack, idx);
 	system("leaks pipex");
 	exit(-1);
 }

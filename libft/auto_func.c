@@ -116,5 +116,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		n_str[i] = '\0';
 		return (n_str);
 	}
+	free((char *)s1);
 	return (NULL);
 }
