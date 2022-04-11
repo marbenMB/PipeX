@@ -39,13 +39,10 @@ t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av
     {
 		if (av[idx[1]][0] == '/')
 		{
-			if (!access(av[idx[1]], X_OK))
-			{
-				cmd_pack[idx[2]].cmd = ft_split(av[idx[1]], ' ');
-				// get command from the absolute path strrchr(/) + strtrim(/)
-				cmd_pack[idx[2]].cmd_path = ft_strtrim(ft_strrchr(cmd_pack[idx[2]].cmd[0], '/'), "/");
-                //continue ;
-			}
+			cmd_pack[++idx[2]].cmd = ft_split(av[idx[1]], ' ');
+			cmd_pack[idx[2]].cmd_path = ft_strdup(cmd_pack[idx[2]].cmd[0]);
+			if (access(cmd_pack[idx[2]].cmd[0], X_OK))
+				error_cmd(av[idx[1]], cmd_pack, idx[2]);
 		}
 		else
 		{
