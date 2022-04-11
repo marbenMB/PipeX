@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/09 09:04:25 by mbenbajj          #+#    #+#             */
-/*   Updated: 2022/03/09 09:04:27 by mbenbajj         ###   ########.fr       */
+/*   Created: 2021/11/23 15:38:04 by mbenbajj          #+#    #+#             */
+/*   Updated: 2021/11/25 05:47:32 by mbenbajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
+#include "libft.h"
 
 void	ft_free(char **tab)
 {

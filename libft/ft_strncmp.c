@@ -1,40 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lib_func.c                                         :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/13 16:32:42 by mbenbajj          #+#    #+#             */
-/*   Updated: 2022/03/13 16:32:45 by mbenbajj         ###   ########.fr       */
+/*   Created: 2021/11/03 19:18:24 by mbenbajj          #+#    #+#             */
+/*   Updated: 2021/11/06 09:59:54 by mbenbajj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../pipex.h"
-
-void	ft_putchar_fd(char c, int fd)
-{
-	write(fd, &c, 1);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	if (s)
-	{
-		while (*s)
-		{
-			ft_putchar_fd(*s, fd);
-			s++;
-		}
-	}
-}
-
-void	ft_putendl_fd(char *s, int fd)
-{
-	if (s)
-		ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
-}
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -55,21 +31,4 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 		return (*str1 - *str2);
 	}
 	return (0);
-}
-
-char	*ft_strrchr(const char *s, int c)
-{
-	size_t	len;
-
-	len = ft_strlen((char *)s);
-	if (c != 0)
-	{
-		while (*s && len--)
-		{
-			if (s[len] == (char )c)
-				return ((char *)(s + len));
-		}
-		return (NULL);
-	}
-	return ((char *)s + len);
 }
