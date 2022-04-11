@@ -12,7 +12,7 @@ void	free_struct(t_cmd_pack *cmd_pack, int idx)
 		j = -1;
 		while (cmd_pack[i].cmd[++j])
 			free(cmd_pack[i].cmd[j]);
-		free(cmd_pack[i].cmd[j]);
+		free(cmd_pack[i].cmd);
 		free(cmd_pack[i].cmd_path);
 	}
 	free(cmd_pack);
@@ -58,7 +58,6 @@ t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av
 				if (!access(cmd_pack[idx[2]].cmd_path, X_OK))
 					break ;
 				free(cmd_pack[idx[2]].cmd_path);
-
 			}
 		}
         if (access(cmd_pack[idx[2]].cmd_path, X_OK))
