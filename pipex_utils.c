@@ -41,7 +41,7 @@ t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av
 		{
 			cmd_pack[++idx[2]].cmd = ft_split(av[idx[1]], ' ');
 			cmd_pack[idx[2]].cmd_path = ft_strdup(cmd_pack[idx[2]].cmd[0]);
-			if (access(cmd_pack[idx[2]].cmd[0], X_OK))
+			if (access(cmd_pack[idx[2]].cmd_path, X_OK))
 				error_cmd(av[idx[1]], cmd_pack, idx[2]);
 		}
 		else
