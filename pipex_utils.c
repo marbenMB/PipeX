@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/12 00:16:31 by mbenbajj          #+#    #+#             */
+/*   Updated: 2022/04/12 00:18:22 by mbenbajj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "pipex.h"
 
@@ -28,15 +39,15 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av)
+t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av)
 {
-    int     idx[3];
-    char    *str;
+	int		idx[3];
+	char	*str;
 
-    idx[1] = 1;
-    idx[2] = -1;
-    while (++idx[1] < ac - 1)
-    {
+	idx[1] = 1;
+	idx[2] = -1;
+	while (++idx[1] < ac - 1)
+	{
 		if (av[idx[1]][0] == '/')
 		{
 			cmd_pack[++idx[2]].cmd = ft_split(av[idx[1]], ' ');
@@ -58,27 +69,27 @@ t_cmd_pack  *fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av
 				free(cmd_pack[idx[2]].cmd_path);
 			}
 		}
-        if (access(cmd_pack[idx[2]].cmd_path, X_OK))
-            error_cmd(av[idx[1]], cmd_pack, idx[2]);
-    }
+		if (access(cmd_pack[idx[2]].cmd_path, X_OK))
+			error_cmd(av[idx[1]], cmd_pack, idx[2]);
+	}
 	return (cmd_pack);
 }
 
-t_cmd_pack  *get_cmd_pack(int ac, char **av, char **env)
+t_cmd_pack	*get_cmd_pack(int ac, char **av, char **env)
 {
-    int     idx;
-    char    **paths;
-	t_cmd_pack  *cmd_pack;
+	int			idx;
+	char		**paths;
+	t_cmd_pack	*cmd_pack;
 
-    cmd_pack = (t_cmd_pack *)malloc(sizeof(t_cmd_pack) * ac - 3);
-    if (!cmd_pack)
-        exit(-1);
-    idx = -1;
-    while (!ft_strnstr(env[++idx], "PATH=", 5))
-        ;
-    paths = ft_split(&env[idx][5], ':');
-    cmd_pack = fill_cmd_pack(cmd_pack, paths, ac, av);
+	cmd_pack = (t_cmd_pack *)malloc(sizeof(t_cmd_pack) * ac - 3);
+	if (!cmd_pack)
+		exit(-1);
+	idx = -1;
+	while (!ft_strnstr(env[++idx], "PATH=", 5))
+		;
+	paths = ft_split(&env[idx][5], ':');
+	cmd_pack = fill_cmd_pack(cmd_pack, paths, ac, av);
 	//free paths pointer
 	free_tab(paths);
-    return (cmd_pack);
+	return (cmd_pack);
 }

@@ -18,7 +18,7 @@ size_t	ft_strlen(const char *s)
 
 	i = -1;
 	if (!s)
-		return (-1);	// Just for protecting the function against the segmentation faults.
+		return (-1);
 	while (s[++i])
 		;
 	return (i);
