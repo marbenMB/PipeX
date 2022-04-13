@@ -20,3 +20,6 @@ int	main(int ac, char **av, char **env)
 	//sleep(555);
 	//system("leaks pipex");
 }
+
+// TODO : Forking -> Piping -> excuting 
+// TODO : Here_doc handling

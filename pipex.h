@@ -26,6 +26,8 @@ typedef struct s_cmd_pack
 {
 	char	**cmd;
 	char	*cmd_path;
+	int		in_fd;
+	int		out_fd;
 }	t_cmd_pack;
 
 typedef struct s_hd_pack
@@ -50,4 +52,5 @@ void		free_tab(char **tab);
 void		free_struct(t_cmd_pack *cmd_pack, int idx);
 t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av);
 t_cmd_pack	*get_cmd_pack(int ac, char **av, char **env);
+void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env);
 #endif
