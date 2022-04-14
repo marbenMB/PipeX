@@ -53,7 +53,8 @@ char	*get_cmd_path(char *cmd_path, char *cmd, char **paths)
 	return (cmd_path);
 }
 
-t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av)
+t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, \
+			char **paths, int ac, char **av)
 {
 	int		idx[2];
 	char	*str;
@@ -73,7 +74,8 @@ t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, char **paths, int ac, char **av)
 		else
 		{
 			cmd_pack[++idx[1]].cmd = ft_split(av[idx[0]], ' ');
-			cmd_pack[idx[1]].cmd_path = get_cmd_path(cmd_pack[idx[1]].cmd_path, cmd_pack[idx[1]].cmd[0], paths);
+			cmd_pack[idx[1]].cmd_path = get_cmd_path(cmd_pack[idx[1]].cmd_path, \
+										cmd_pack[idx[1]].cmd[0], paths);
 		}
 		if (access(cmd_pack[idx[1]].cmd_path, X_OK))
 			error_cmd(av[idx[0]], cmd_pack, idx[1]);

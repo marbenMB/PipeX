@@ -22,7 +22,7 @@ void	process_execution(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 
 void	process_cmd(int fd[2], int ac, char **av, char **env)
 {
-	t_cmd_pack *cmd_pack;
+	t_cmd_pack	*cmd_pack;
 	int			j;
 
 	j = -1;
@@ -32,17 +32,14 @@ void	process_cmd(int fd[2], int ac, char **av, char **env)
 		cmd_pack[j].in_fd = fd[0];
 		cmd_pack[j].out_fd = fd[1];
 	}
-	// for (int i = 0; i < ac - 3; i++)
-	// 	printf("cmd : %s	-	path :	%s %d-%d\n", cmd_pack[i].cmd[0], cmd_pack[i].cmd_path, cmd_pack[i].in_fd, cmd_pack[i].out_fd);
 	process_execution(cmd_pack, ac, av, env);
 	free_struct(cmd_pack, ac - 4);
-	//system("leaks pipex");
 }
 
-void process_here_doc(int ac, char **av, char **env)
+void	process_here_doc(int ac, char **av, char **env)
 {
-	int idx;
-	t_cmd_pack *cmd_pack;
+	int			idx;
+	t_cmd_pack	*cmd_pack;
 
 	idx = 2;
 	while (++idx < ac)
@@ -53,15 +50,13 @@ void process_here_doc(int ac, char **av, char **env)
 			error_fill_arg(av[idx]);
 	}
 	cmd_pack = get_cmd_pack(ac, av, env);
-	for (int i = 0; i < ac - 4; i++)
-		printf("cmd : %s	-	path :	%s\n", cmd_pack[i].cmd[0], cmd_pack[i].cmd_path);
 	free_struct(cmd_pack, ac - 5);
 }
 
-void process_args(int ac, char **av, char **env)
+void	process_args(int ac, char **av, char **env)
 {
-	int idx;
-	int fd[2];
+	int	idx;
+	int	fd[2];
 
 	if (!ft_strncmp(av[1], "here_doc", 8))
 		process_here_doc(ac, av, env);
@@ -80,7 +75,7 @@ void process_args(int ac, char **av, char **env)
 			error_files();
 		fd[1] = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0666);
 		if (fd[1] < 0)
-		    error_files();
+			error_files();
 		process_cmd(fd, ac, av, env);
 	}
 }

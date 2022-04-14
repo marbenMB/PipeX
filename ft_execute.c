@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_execute.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbenbajj <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/14 00:59:05 by mbenbajj          #+#    #+#             */
+/*   Updated: 2022/04/14 00:59:08 by mbenbajj         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 void	ft_pip(int	**fd)
@@ -9,7 +21,7 @@ void	ft_pip(int	**fd)
 		exit (-1);
 }
 
-int		ft_fork(void)
+int	ft_fork(void)
 {
 	pid_t	id;
 
@@ -22,10 +34,10 @@ int		ft_fork(void)
 void	ft_dup(t_cmd_pack *cmd_pack, int idx, int fd, int ac)
 {
 	dup2(cmd_pack->in_fd, 0);
-			if (idx == ac - 4)
-				dup2(cmd_pack->out_fd, 1);
-			else
-				dup2(fd, 1);
+	if (idx == ac - 4)
+		dup2(cmd_pack->out_fd, 1);
+	else
+		dup2(fd, 1);
 }
 
 void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
@@ -55,5 +67,4 @@ void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 
 void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 {
-
 }
