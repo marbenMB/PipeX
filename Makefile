@@ -11,24 +11,24 @@
 # **************************************************************************** #
 
 NAME = pipex
-BNS_NAME = pipex_bonus
-SRC = pipex.c ./Pipex_Utils/pipex_utils.c ./Pipex_Utils/error_handling.c ./Pipex_Utils/ft_process.c ./Pipex_Utils/ft_execute.c
+BNS_NAME = pipex_bns
 .SILENT :
+SRC = ./Pipex_Manda/pipex.c ./Pipex_Manda/pipex_utils.c ./Pipex_Manda/error_handling.c ./Pipex_Manda/ft_process.c ./Pipex_Manda/ft_execute.c
 OBJECT = $(SRC:.c=.o)
-BNS_SRC = pipex_bonus.c ./Pipex_Utils_bonus/pipex_utils_bonus.c ./Pipex_Utils_bonus/error_handling_bonus.c ./Pipex_Utils_bonus/ft_process_bonus.c ./Pipex_Utils_bonus/ft_execute_bonus.c
+BNS_SRC = ./Pipex_Bns/pipex_bonus.c ./Pipex_Bns/pipex_utils_bonus.c ./Pipex_Bns/error_handling_bonus.c ./Pipex_Bns/ft_process_bonus.c ./Pipex_Bns/ft_execute_bonus.c
 BNS_OBJ = $(SRC:.c=.o)
 CFlAGS = -Wall -Wextra -Werror -I.
 
 all : $(NAME)
 
-$(NAME) : $(OBJECT) ./Pipex_Utils/pipex.h
+$(NAME) : $(OBJECT) ./Pipex_Manda/pipex.h
 	# gcc $(OBJECT) -o $(NAME)
 	make -C ./libft
 	@gcc $(SRC) -o $(NAME) ./libft/libft.a -g
 
 bonus :	$(BNS_NAME)
 
-$(BNS_NAME) : $(BNS_OBJ) ./Pipex_Utils_bonus/pipex_bonus.h
+$(BNS_NAME) : $(BNS_OBJ) ./Pipex_Bns/pipex_bonus.h
 	# gcc $(BNS_OBJ) -o $(BNS_NAME)
 	make -C ./libft
 	@gcc $(BNS_SRC) -o $(BNS_NAME) ./libft/libft.a -g

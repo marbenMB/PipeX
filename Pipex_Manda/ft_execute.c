@@ -64,7 +64,3 @@ void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 	free(fd);
 	waitpid(id, NULL, 0);
 }
-
-void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
-{
-}
