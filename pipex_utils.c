@@ -93,7 +93,7 @@ t_cmd_pack	*get_cmd_pack(int ac, char **av, char **env)
 	if (!cmd_pack)
 		exit(-1);
 	idx = -1;
-	while (!ft_strnstr(env[++idx], "PATH=", 5))
+	while (!ft_strnstr(env[++idx], "PATH", 4) && env[idx])
 		;
 	paths = ft_split(&env[idx][5], ':');
 	cmd_pack = fill_cmd_pack(cmd_pack, paths, ac, av);
