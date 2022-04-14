@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 //  includes : 
 # include <stdio.h>
@@ -19,7 +19,8 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
-# include "./libft/libft.h"
+# include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 
 //  Structures :
 typedef struct s_cmd_pack

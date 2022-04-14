@@ -10,4 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "./Pipex_Utils/pipex.h"
+
+int	main(int ac, char **av, char **env)
+{
+	if (ac != 5)
+		error_args();
+	if (ac >= 5 && env[0] != NULL)
+		process_args(ac, av, env);
+}
