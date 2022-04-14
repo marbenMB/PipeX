@@ -12,7 +12,15 @@
 
 #include "pipex.h"
 
-void process_cmd(int fd[2], int ac, char **av, char **env)
+void	process_execution(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
+{
+	if (!ft_strncmp(av[1], "here_doc", 8))
+		execute_here_doc(cmd_pack, ac, av, env);
+	else
+		execute_cmd(cmd_pack, ac, av, env);
+}
+
+void	process_cmd(int fd[2], int ac, char **av, char **env)
 {
 	t_cmd_pack *cmd_pack;
 	int			j;
@@ -26,7 +34,7 @@ void process_cmd(int fd[2], int ac, char **av, char **env)
 	}
 	// for (int i = 0; i < ac - 3; i++)
 	// 	printf("cmd : %s	-	path :	%s %d-%d\n", cmd_pack[i].cmd[0], cmd_pack[i].cmd_path, cmd_pack[i].in_fd, cmd_pack[i].out_fd);
-	execute_cmd(cmd_pack, ac, av, env);
+	process_execution(cmd_pack, ac, av, env);
 	free_struct(cmd_pack, ac - 4);
 	//system("leaks pipex");
 }
