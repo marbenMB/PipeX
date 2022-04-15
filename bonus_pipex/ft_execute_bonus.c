@@ -69,4 +69,26 @@ void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 
 void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 {
+	int		*fd;
+	int		j;
+	int		out;
+
+	
+	j = -1;
+	fd = (int *)malloc(sizeof(int) * 2);
+	if (!fd)
+		error();
+	ft_pip(&fd);
+	out = open(av[ac - 1], O_WRONLY | O_CREAT | O_APPEND, 0666);
+	if (out < 0)
+		error_files();
+	while (++j < ac - 4)
+	{
+		cmd_pack[j].in_fd = fd[0];
+		cmd_pack[j].out_fd = out;
+	}
+	j = -1;
+	while (++j < ac - 4)
+		printf("%d - %d\n", cmd_pack[j].in_fd, cmd_pack[j].out_fd);
+	start_here_doc();
 }

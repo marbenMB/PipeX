@@ -50,6 +50,9 @@ void	process_here_doc(int ac, char **av, char **env)
 			error_fill_arg(av[idx]);
 	}
 	cmd_pack = get_cmd_pack(ac, av, env);
+	for (idx = 0; idx < ac - 4; idx++)
+		printf("cmd : %s	-	path : %s\n", cmd_pack[idx].cmd[0], cmd_pack[idx].cmd_path);
+	process_execution(cmd_pack, ac, av, env);
 	free_struct(cmd_pack, ac - 5);
 }
 

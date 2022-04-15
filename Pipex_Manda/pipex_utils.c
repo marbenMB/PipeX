@@ -59,10 +59,7 @@ t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, \
 	int		idx[2];
 	char	*str;
 
-	if (!ft_strncmp(av[1], "here_doc", 8))
-		idx[0] = 2;
-	else
-		idx[0] = 1;
+	idx[0] = 1;
 	idx[1] = -1;
 	while (++idx[0] < ac - 1)
 	{
