@@ -92,4 +92,5 @@ void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 	start_here_doc(fd, ac, av, env);
 	start_execute_cmd(cmd_pack, ac, av, env);
 	close(fd[0]);
+	free(fd);
 }
