@@ -27,7 +27,7 @@ $(NAME) : $(OBJECT) ./Pipex_Manda/pipex.h
 
 bonus :	$(BNS_OBJ) ./bonus_pipex/pipex_bonus.h ./get_next_line/get_next_line.h
 	make -C ./libft
-	gcc $(BNS_SRC) -o $(NAME) ./libft/libft.a -g
+	gcc $(BNS_OBJ) -o $(NAME) ./libft/libft.a -g
 
 clean :
 	rm -rf $(OBJECT) $(BNS_OBJ)

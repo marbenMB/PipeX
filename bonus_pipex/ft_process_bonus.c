@@ -14,7 +14,7 @@
 
 void	process_execution(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 {
-	if (!ft_strncmp(av[1], "here_doc", 8))
+	if (!ft_strcmp(av[1], "here_doc"))
 		execute_here_doc(cmd_pack, ac, av, env);
 	else
 		execute_cmd(cmd_pack, ac, av, env);
@@ -59,7 +59,7 @@ void	process_args(int ac, char **av, char **env)
 	int	idx;
 	int	fd[2];
 
-	if (!ft_strncmp(av[1], "here_doc", 8))
+	if (!ft_strcmp(av[1], "here_doc"))
 		process_here_doc(ac, av, env);
 	else
 	{

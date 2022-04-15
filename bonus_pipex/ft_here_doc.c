@@ -30,6 +30,8 @@ void	start_here_doc(int fd[2], int ac, char **av, char **env)
 	{
 		write(1, "pipe heredoc> ", 14);
 		trim = get_next_line(0);
+		if (!trim)
+			error();
 		line = ft_strtrim(trim, "\n");
 		free(trim);
 		if (ft_strcmp(av[2], line) == 0)
