@@ -64,7 +64,7 @@ char	*ft_join(char *s1, char *s2)
 	big_len = s1_len + str_len_ft(s2, '\0') + 1;
 	new_str = (char *)malloc(sizeof(char) * big_len);
 	if (!new_str)
-		return (free(s2), NULL);
+		return (free(s2), exit(1), NULL);
 	i = 0;
 	while (s1[i])
 	{
