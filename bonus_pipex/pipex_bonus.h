@@ -58,4 +58,9 @@ void		ft_dup(t_cmd_pack *cmd_pack, int idx, int fd, int ac);
 void		execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env);
 void		execute_here_doc(t_cmd_pack *cmd_pack, \
 			int ac, char **av, char **env);
+//	**********	Here_doc functions :
+void		ft_dup_here_doc(t_cmd_pack *cmd_pack, int idx, int fd, int ac);
+void		start_here_doc(int fd[2], int ac, char **av, char **env);
+void		start_execute_cmd(t_cmd_pack *cmd_pack, \
+			int ac, char **av, char **env);
 #endif

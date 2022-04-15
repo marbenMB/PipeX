@@ -73,7 +73,6 @@ void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 	int		j;
 	int		out;
 
-	
 	j = -1;
 	fd = (int *)malloc(sizeof(int) * 2);
 	if (!fd)
@@ -90,5 +89,7 @@ void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 	j = -1;
 	while (++j < ac - 4)
 		printf("%d - %d\n", cmd_pack[j].in_fd, cmd_pack[j].out_fd);
-	start_here_doc();
+	start_here_doc(fd, ac, av, env);
+	start_execute_cmd(cmd_pack, ac, av, env);
+	close(fd[0]);
 }
