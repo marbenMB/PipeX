@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	error_args(void)
 {
-	ft_putendl_fd("\033[31m ** USAGE : file1 \"cmd1\" \"cmd2\" file2\033[0m", 2);
+	ft_putendl_fd("\033[31m ** USAGE : file1 cmd1 cmd2 ... cmdn file2\033[0m", 2);
 	exit(-1);
 }
 

@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 //  includes : 
 # include <stdio.h>
@@ -20,6 +20,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include "../libft/libft.h"
+# include "../get_next_line/get_next_line.h"
 
 //  Structures :
 typedef struct s_cmd_pack
@@ -34,6 +35,7 @@ typedef struct s_cmd_pack
 //	**********  Processing functions :
 void		process_args(int ac, char **av, char **env);
 void		process_cmd(int fd[2], int ac, char **av, char **env);
+void		process_here_doc(int ac, char **av, char **env);
 void		process_execution(t_cmd_pack *cmd_pack, \
 			int ac, char **av, char **env);
 //	**********  Error handling :
@@ -54,4 +56,6 @@ void		ft_pip(int	**fd);
 int			ft_fork(void);
 void		ft_dup(t_cmd_pack *cmd_pack, int idx, int fd, int ac);
 void		execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env);
+void		execute_here_doc(t_cmd_pack *cmd_pack, \
+			int ac, char **av, char **env);
 #endif

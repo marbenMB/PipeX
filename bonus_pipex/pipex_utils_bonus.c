@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	free_tab(char **tab)
 {
@@ -93,7 +93,7 @@ t_cmd_pack	*get_cmd_pack(int ac, char **av, char **env)
 	if (!cmd_pack)
 		error();
 	idx = -1;
-	while (env[idx] && !ft_strnstr(env[++idx], "PATH=", 5))
+	while (!ft_strnstr(env[++idx], "PATH=", 5) && env[idx])
 		;
 	if (env[idx] == NULL)
 		error();
