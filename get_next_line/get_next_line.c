@@ -18,11 +18,11 @@ char	*ft_get_line(char *str)
 	char	*line;
 
 	if (!str[0] || !str)
-		return (NULL);
+		return (exit(1), NULL);
 	index = str_len_ft(str, '\n');
 	line = (char *)ft_calloc(sizeof(char), (index + 2));
 	if (!line)
-		return (NULL);
+		return (exit(1), NULL);
 	index = -1;
 	while (str[++index] != '\n' && str[index] != '\0')
 		line[index] = str[index];
@@ -42,14 +42,14 @@ char	*get_stc_buff(int fd, char *stc_buff)
 		stc_buff = ft_calloc(1, 1);
 	buff = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
-		return (NULL);
+		return (exit(1), NULL);
 	verf = 0;
 	verf = ft_srh(stc_buff, verf);
 	while (verf != -1)
 	{
 		byte = read(fd, buff, BUFFER_SIZE);
 		if (byte < 0)
-			return (free(buff), NULL);
+			return (free(buff), exit(1), NULL);
 		buff[byte] = 0;
 		if (byte == 0)
 			break ;
@@ -66,7 +66,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (exit(1), NULL);
 	stc_buff = get_stc_buff(fd, stc_buff);
 	line = ft_get_line(stc_buff);
 	stc_buff = ft_rest(stc_buff);

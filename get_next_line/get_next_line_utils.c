@@ -28,7 +28,7 @@ void	*ft_calloc(size_t count, size_t size)
 
 	p = (void *)malloc(count * size);
 	if (!p)
-		return (NULL);
+		return (exit(1), NULL);
 	i = 0;
 	while (((char *)p) && i < count * size)
 	{
@@ -89,7 +89,7 @@ char	*ft_rest(char *buffer_static)
 
 	index = str_len_ft(buffer_static, '\n');
 	if (!buffer_static[index])
-		return (free(buffer_static), NULL);
+		return (free(buffer_static), exit(1), NULL);
 	len = str_len_ft(buffer_static, '\0') - index + 1;
 	str = (char *)ft_calloc(sizeof(char), len);
 	index++;
