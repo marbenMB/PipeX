@@ -18,7 +18,7 @@ void	ft_pip(int	**fd)
 
 	pip = pipe(*fd);
 	if (pip < 0)
-		exit (-1);
+		error();
 }
 
 int	ft_fork(void)
@@ -27,7 +27,7 @@ int	ft_fork(void)
 
 	id = fork();
 	if (id < 0)
-		exit (-1);
+		error();
 	return (id);
 }
 
@@ -48,6 +48,8 @@ void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 
 	idx = -1;
 	fd = (int *)malloc(sizeof(int) * 2);
+	if (!fd)
+		error();
 	while (++idx < ac - 3)
 	{
 		ft_pip(&fd);
