@@ -30,6 +30,7 @@ bonus :	$(BNS_OBJ) ./bonus_pipex/pipex_bonus.h ./get_next_line/get_next_line.h
 	gcc $(BNS_OBJ) -o $(NAME) ./libft/libft.a -g
 
 clean :
+	make clean -C ./libft
 	rm -rf $(OBJECT) $(BNS_OBJ)
 
 fclean : clean
