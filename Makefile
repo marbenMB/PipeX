@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = pipex
-# .SILENT :
+.SILENT :
 SRC = ./Pipex_Manda/pipex.c ./Pipex_Manda/pipex_utils.c ./Pipex_Manda/error_handling.c ./Pipex_Manda/ft_process.c ./Pipex_Manda/ft_execute.c
 OBJECT = $(SRC:.c=.o)
 BNS_SRC = ./bonus_pipex/pipex_bonus.c ./bonus_pipex/pipex_utils_bonus.c ./bonus_pipex/error_handling_bonus.c ./bonus_pipex/ft_process_bonus.c \
@@ -38,4 +38,4 @@ fclean : clean
 
 re : fclean all
 
-rb : fclean bonus
+.PHONY : all clean fclean re bonus
