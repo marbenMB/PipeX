@@ -40,7 +40,7 @@ void	ft_dup(t_cmd_pack *cmd_pack, int idx, int fd, int ac)
 		dup2(fd, 1);
 }
 
-void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
+void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **env)
 {
 	int		idx;
 	int		*fd;
@@ -86,8 +86,8 @@ void	execute_here_doc(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 		cmd_pack[j].in_fd = fd[0];
 		cmd_pack[j].out_fd = out;
 	}
-	start_here_doc(fd, ac, av, env);
-	start_execute_cmd(cmd_pack, ac, av, env);
+	start_here_doc(fd, av);
+	start_execute_cmd(cmd_pack, ac, env);
 	close(fd[0]);
 	free(fd);
 }

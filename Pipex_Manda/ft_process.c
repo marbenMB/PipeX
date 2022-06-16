@@ -12,9 +12,9 @@
 
 #include "pipex.h"
 
-void	process_execution(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
+void	process_execution(t_cmd_pack *cmd_pack, int ac, char **env)
 {
-	execute_cmd(cmd_pack, ac, av, env);
+	execute_cmd(cmd_pack, ac, env);
 }
 
 void	process_cmd(int fd[2], int ac, char **av, char **env)
@@ -29,7 +29,7 @@ void	process_cmd(int fd[2], int ac, char **av, char **env)
 		cmd_pack[j].in_fd = fd[0];
 		cmd_pack[j].out_fd = fd[1];
 	}
-	process_execution(cmd_pack, ac, av, env);
+	process_execution(cmd_pack, ac, env);
 	free_struct(cmd_pack, ac - 4);
 }
 

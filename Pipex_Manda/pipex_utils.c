@@ -57,7 +57,6 @@ t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, \
 			char **paths, int ac, char **av)
 {
 	int		idx[2];
-	char	*str;
 
 	idx[0] = 1;
 	idx[1] = -1;
@@ -75,7 +74,7 @@ t_cmd_pack	*fill_cmd_pack(t_cmd_pack *cmd_pack, \
 										cmd_pack[idx[1]].cmd[0], paths);
 		}
 		if (access(cmd_pack[idx[1]].cmd_path, X_OK))
-			error_cmd(av[idx[0]], cmd_pack, idx[1]);
+			error_cmd(av[idx[0]]);
 	}
 	return (cmd_pack);
 }

@@ -17,7 +17,7 @@ void	process_execution(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
 	if (!ft_strcmp(av[1], "here_doc"))
 		execute_here_doc(cmd_pack, ac, av, env);
 	else
-		execute_cmd(cmd_pack, ac, av, env);
+		execute_cmd(cmd_pack, ac, env);
 }
 
 void	process_cmd(int fd[2], int ac, char **av, char **env)

@@ -21,7 +21,7 @@ void	ft_dup_here_doc(t_cmd_pack *cmd_pack, int idx, int fd, int ac)
 		dup2(fd, 1);
 }
 
-void	start_here_doc(int fd[2], int ac, char **av, char **env)
+void	start_here_doc(int fd[2],char **av)
 {
 	char	*trim;
 	char	*line;
@@ -45,7 +45,7 @@ void	start_here_doc(int fd[2], int ac, char **av, char **env)
 	close(fd[1]);
 }
 
-void	start_execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
+void	start_execute_cmd(t_cmd_pack *cmd_pack, int ac, char **env)
 {
 	int		idx;
 	int		*fd;

@@ -34,7 +34,7 @@ void	error_fill_arg(char *str)
 	exit(-1);
 }
 
-void	error_cmd(char *arg, t_cmd_pack *cmd_pack, int idx)
+void	error_cmd(char *arg)
 {
 	ft_putstr_fd("\033[31m ** CMD : No such command -> \033[0m", 2);
 	write(2, arg, ft_strlen(arg));

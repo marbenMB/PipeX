@@ -40,7 +40,7 @@ void	ft_dup(t_cmd_pack *cmd_pack, int idx, int fd, int ac)
 		dup2(fd, 1);
 }
 
-void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env)
+void	execute_cmd(t_cmd_pack *cmd_pack, int ac, char **env)
 {
 	int		idx;
 	int		*fd;

@@ -10,7 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-
 NAME = libft.a
 SRC = ft_isalpha.c ft_memcmp.c ft_strdup.c ft_strnstr.c \
         ft_atoi.c ft_isascii.c ft_memcpy.c ft_strlcat.c    ft_strrchr.c \
@@ -24,22 +23,30 @@ BONUS_SRC = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_ba
 				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c
 
 OBJECT = $(SRC:.c=.o)
+
 BONUS_OBJECT = $(BONUS_SRC:.c=.o)
+
 CC = cc
-CFlAGS = -Wall -Wextra -Werror -I.
+
+CFLAGS = -Wall -Wextra -Werror
 
 all : $(NAME)
 
 $(NAME) : $(OBJECT) libft.h
-	ar rc $(NAME) $(OBJECT) 
+	ar rc $(NAME) $(OBJECT)
+
+%.o: %.c libft.h
+		cc $(CFLAGS) -c $< -o $@
 
 bonus : $(OBJECT) $(BONUS_OBJECT)
 	ar rc $(NAME) $(OBJECT) $(BONUS_OBJECT)
 
 clean :
 	rm -f $(OBJECT) $(BONUS_OBJECT)
+
 fclean : clean
 	rm -f $(NAME)
+
 re : fclean all
 
 .PHONY : clean fclean all re bonus

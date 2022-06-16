@@ -42,7 +42,7 @@ void		process_execution(t_cmd_pack *cmd_pack, \
 void		error_args(void);
 void		error_files(void);
 void		error_fill_arg(char *str);
-void		error_cmd(char *arg, t_cmd_pack *cmd_pack, int idx);
+void		error_cmd(char *arg);
 void		error(void);
 //	**********  Pipex Utils :
 void		free_tab(char **tab);
@@ -55,12 +55,12 @@ t_cmd_pack	*get_cmd_pack(int ac, char **av, char **env);
 void		ft_pip(int	**fd);
 int			ft_fork(void);
 void		ft_dup(t_cmd_pack *cmd_pack, int idx, int fd, int ac);
-void		execute_cmd(t_cmd_pack *cmd_pack, int ac, char **av, char **env);
+void		execute_cmd(t_cmd_pack *cmd_pack, int ac, char **env);
 void		execute_here_doc(t_cmd_pack *cmd_pack, \
 			int ac, char **av, char **env);
 //	**********	Here_doc functions :
 void		ft_dup_here_doc(t_cmd_pack *cmd_pack, int idx, int fd, int ac);
-void		start_here_doc(int fd[2], int ac, char **av, char **env);
+void		start_here_doc(int fd[2], char **av);
 void		start_execute_cmd(t_cmd_pack *cmd_pack, \
-			int ac, char **av, char **env);
+			int ac, char **env);
 #endif
