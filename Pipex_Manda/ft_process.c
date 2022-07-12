@@ -35,16 +35,21 @@ void	process_cmd(int fd[2], int ac, char **av, char **env)
 
 void	process_args(int ac, char **av, char **env)
 {
-	int	idx;
-	int	fd[2];
+	int		idx;
+	int		fd[2];
+	char	**args;
 
 	idx = 0;
 	while (++idx < ac)
 	{
+		args = ft_split(av[idx], ' ');
+		if (!args[0])
+			error_fill_arg(av[idx]);
 		if (!av[idx] || av[idx][0] == 0)
 			error_fill_arg(av[idx]);
 		if (!ft_strncmp(av[idx], " ", 2))
 			error_fill_arg(av[idx]);
+		free_tab(args);
 	}
 	fd[0] = open(av[1], O_RDONLY, 0666);
 	if (fd[0] < 0)

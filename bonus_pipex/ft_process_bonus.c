@@ -39,15 +39,19 @@ void	process_cmd(int fd[2], int ac, char **av, char **env)
 void	process_here_doc(int ac, char **av, char **env)
 {
 	int			idx;
+	char		**args;
 	t_cmd_pack	*cmd_pack;
 
 	idx = 2;
 	while (++idx < ac)
-	{
+	{	args = ft_split(av[idx], ' ');
+		if (!args[0])
+			error_fill_arg(av[idx]);
 		if (!av[idx] || av[idx][0] == 0)
 			error_fill_arg(av[idx]);
 		if (!ft_strncmp(av[idx], " ", 2))
 			error_fill_arg(av[idx]);
+		free_tab(args);
 	}
 	cmd_pack = get_cmd_pack(ac, av, env);
 	process_execution(cmd_pack, ac, av, env);
@@ -56,8 +60,9 @@ void	process_here_doc(int ac, char **av, char **env)
 
 void	process_args(int ac, char **av, char **env)
 {
-	int	idx;
-	int	fd[2];
+	int		idx;
+	char	**args;
+	int		fd[2];
 
 	if (!ft_strcmp(av[1], "here_doc"))
 		process_here_doc(ac, av, env);
@@ -66,10 +71,14 @@ void	process_args(int ac, char **av, char **env)
 		idx = 0;
 		while (++idx < ac)
 		{
+			args = ft_split(av[idx], ' ');
+			if (!args[0])
+				error_fill_arg(av[idx]);
 			if (!av[idx] || av[idx][0] == 0)
 				error_fill_arg(av[idx]);
 			if (!ft_strncmp(av[idx], " ", 2))
 				error_fill_arg(av[idx]);
+			free_tab(args);
 		}
 		fd[0] = open(av[1], O_RDONLY, 0666);
 		if (fd[0] < 0)
